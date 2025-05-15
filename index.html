@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFO Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #060b0c; 
+            color: white;
+        }
+        #gameArea {
+            position: relative;
+            width: 800px; /* Adjusted width */
+            height: 600px; /* Adjusted height */
+            margin: auto;
+            display: none;
+        }
+        #ufo {
+            font-size: 48px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+        .projectile {
+            position: absolute;
+            font-size: 24px;
+            color: white;
+        }
+        .enemy {
+            position: absolute;
+            font-size: 48px;
+            color: red;
+        }
+        .enemy-projectile {
+            position: absolute;
+            font-size: 24px;
+            color: red;
+        }
+        .explosion {
+            position: absolute;
+            font-size: 24px;
+            color: orange;
+        }
+        #startMenu {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        #startButton {
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        #startButton:hover {
+            background-color: #0056b3;
+        }
+        #endGameScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+        .house {
+            font-size: 40px; /* Increase the font size to make the house emoji bigger */
+        }
+        #restartButton {
+            padding: 10px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        #restartButton:hover {
+            background-color: #218838;
+        }
+        #scoreboard {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+        }
+
+        /* Style for the canvas */
+        #starCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Makes sure the stars are behind other elements */
+        }
+    </style>
+</head>
+<body>
+    <div id="startMenu">
+        <button id="startButton">Start Game</button>
+    </div>
+    <div id="gameArea">
+        <div id="ufo">🛸</div>
+        <canvas id="starCanvas"></canvas>
+    </div>
+    <div id="endGameScreen">
+        <h2>Game Over</h2>
+        <p>Your final score: <span id="finalScore">0</span></p>
+        <button id="restartButton">Restart</button>
+    </div>
+    <script>
+        // JavaScript to create and draw stars on the canvas
+        const canvas = document.getElementById("starCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Resize the canvas to fill the screen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Function to draw random stars
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+            for (let i = 0; i < 60; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const size = Math.random() * 2 + 1; // Random size between 1 and 3
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fillStyle = "white";
+                ctx.fill();
+            }
+        }
+
+        // Call the drawStars function every 100 milliseconds
+        setInterval(drawStars, 100);
+    </script>
+</body>
+</html>
